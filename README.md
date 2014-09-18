@@ -20,7 +20,7 @@ Pre-built binaries are available in the bin directory.
 The cplink utility can copy all reparse points in a given directory path to
 another. The utility can also rewrite the all or part of the target for each
 reparse point.
-
+```
 Usage: cplink [/V] [/LEV:n] [/R <find> <replace>] <source> <destination>
 
 Options:
@@ -33,13 +33,13 @@ Options:
 								information.
                 /VER            Display the version and copyright information.
                 /?              View this list of options.
-
+```
 #mvlink
 
 The mvlink utility moves all reparse points in a given directory path to
 another. The utility also is capable of rewriting all or part of the target
 for each reparse point.
-
+```
 Usage: mvlink [/V] [/LEV:n] [/R <find> <replace>] <source> <destination>
 
 Options:
@@ -52,11 +52,11 @@ Options:
 								information.
                 /VER            Display the version and copyright information.
                 /?              View this list of options.
-
+```
 #rmlink
 
 The rmlink utility removes all reparse points from the specified list of paths.
-
+```
 Usage: rmlink [/V] [/LEV:n] <path>...
 
 Options:
@@ -66,7 +66,7 @@ Options:
 								information.
                 /VER            Display the version and copyright information.
                 /?              View this list of options.
-
+```
 #How to Build
 
 The solution files for this project were created for Visual Studio 2012. Any
