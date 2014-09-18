@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mvlink", "mvlink\mvlink.vcxproj", "{747453CF-4068-42FF-9946-8A103BC56AAC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cplink", "cplink\cplink.vcxproj", "{99835B40-5414-4EF8-8EFF-85D75173C29B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rmlink", "rmlink\rmlink.vcxproj", "{9E41F3FE-00BC-4F8D-B03D-130C0D355C75}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{747453CF-4068-42FF-9946-8A103BC56AAC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{747453CF-4068-42FF-9946-8A103BC56AAC}.Debug|Win32.Build.0 = Debug|Win32
+		{747453CF-4068-42FF-9946-8A103BC56AAC}.Release|Win32.ActiveCfg = Release|Win32
+		{747453CF-4068-42FF-9946-8A103BC56AAC}.Release|Win32.Build.0 = Release|Win32
+		{99835B40-5414-4EF8-8EFF-85D75173C29B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{99835B40-5414-4EF8-8EFF-85D75173C29B}.Debug|Win32.Build.0 = Debug|Win32
+		{99835B40-5414-4EF8-8EFF-85D75173C29B}.Release|Win32.ActiveCfg = Release|Win32
+		{99835B40-5414-4EF8-8EFF-85D75173C29B}.Release|Win32.Build.0 = Release|Win32
+		{9E41F3FE-00BC-4F8D-B03D-130C0D355C75}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9E41F3FE-00BC-4F8D-B03D-130C0D355C75}.Debug|Win32.Build.0 = Debug|Win32
+		{9E41F3FE-00BC-4F8D-B03D-130C0D355C75}.Release|Win32.ActiveCfg = Release|Win32
+		{9E41F3FE-00BC-4F8D-B03D-130C0D355C75}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
