@@ -34,6 +34,22 @@ Options:
                 /VER            Display the version and copyright information.
                 /?              View this list of options.
 ```
+
+#fixlink
+
+The fixlink utility can modify all of the target paths of each reparse point
+in a specified list of paths.
+```
+Usage: fixlink [/V] [/LEV:n] <find> <replace> <path>...
+
+Options:
+                /LEV:n          Only copy the top n levels of the source directory
+								tree.
+                /V              Enable verbose output and display more information.
+                /VER            Display the version and copyright information.
+                /?              View this list of options.
+```
+
 #mvlink
 
 The mvlink utility moves all reparse points in a given directory path to
@@ -53,6 +69,7 @@ Options:
                 /VER            Display the version and copyright information.
                 /?              View this list of options.
 ```
+
 #rmlink
 
 The rmlink utility removes all reparse points from the specified list of paths.
@@ -67,6 +84,7 @@ Options:
                 /VER            Display the version and copyright information.
                 /?              View this list of options.
 ```
+
 #How to Build
 
 The solution files for this project were created for Visual Studio 2012. Any

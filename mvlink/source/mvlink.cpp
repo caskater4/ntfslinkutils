@@ -397,12 +397,9 @@ int _tmain(int argc, TCHAR* argv[])
 	result = mvlink(argv[argc-2], argv[argc-1]);
 
 	// Print the execution statistics
-	if (Options.bVerbose)
-	{
-		printf("Moved: %d\n", Stats.NumMoved);
-		printf("Skipped: %d\n", Stats.NumSkipped);
-		printf("Failed: %d\n", Stats.NumFailed);
-	}
+	printf("Moved: %d\n", Stats.NumMoved);
+	printf("Skipped: %d\n", Stats.NumSkipped);
+	printf("Failed: %d\n", Stats.NumFailed);
 
 	return Stats.NumFailed > 0 ? (int)result : 0;
 }

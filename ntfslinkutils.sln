@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cplink", "cplink\cplink.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rmlink", "rmlink\rmlink.vcxproj", "{9E41F3FE-00BC-4F8D-B03D-130C0D355C75}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fixlink", "fixlink\fixlink.vcxproj", "{7A5B3060-5821-45A7-A988-3C8C1880D4A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -25,6 +27,10 @@ Global
 		{9E41F3FE-00BC-4F8D-B03D-130C0D355C75}.Debug|Win32.Build.0 = Debug|Win32
 		{9E41F3FE-00BC-4F8D-B03D-130C0D355C75}.Release|Win32.ActiveCfg = Release|Win32
 		{9E41F3FE-00BC-4F8D-B03D-130C0D355C75}.Release|Win32.Build.0 = Release|Win32
+		{7A5B3060-5821-45A7-A988-3C8C1880D4A4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7A5B3060-5821-45A7-A988-3C8C1880D4A4}.Debug|Win32.Build.0 = Debug|Win32
+		{7A5B3060-5821-45A7-A988-3C8C1880D4A4}.Release|Win32.ActiveCfg = Release|Win32
+		{7A5B3060-5821-45A7-A988-3C8C1880D4A4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

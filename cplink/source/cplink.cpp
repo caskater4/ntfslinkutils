@@ -391,12 +391,9 @@ int _tmain(int argc, TCHAR* argv[])
 	result = cplink(argv[argc-2], argv[argc-1]);
 
 	// Print the execution statistics
-	if (Options.bVerbose)
-	{
-		printf("Copied: %d\n", Stats.NumCopied);
-		printf("Skipped: %d\n", Stats.NumSkipped);
-		printf("Failed: %d\n", Stats.NumFailed);
-	}
+	printf("Copied: %d\n", Stats.NumCopied);
+	printf("Skipped: %d\n", Stats.NumSkipped);
+	printf("Failed: %d\n", Stats.NumFailed);
 
 	return Stats.NumFailed > 0 ? (int)result : 0;
 }

@@ -53,15 +53,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(SolutionDir)external\libntfslinks\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(ProjectDir)source;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
-    <LibraryPath>$(SolutionDir)external\libntfslinks\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <IncludePath>$(ProjectDir)include;$(SolutionDir)external\libntfslinks\include;$(IncludePath)</IncludePath>
+    <SourcePath>$(ProjectDir)source;$(SourcePath)</SourcePath>
+    <LibraryPath>$(SolutionDir)external\libntfslinks\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(SolutionDir)external\libntfslinks\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>$(ProjectDir)source;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
-    <LibraryPath>$(SolutionDir)external\libntfslinks\lib;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <IncludePath>$(ProjectDir)include;$(SolutionDir)external\libntfslinks\include;$(IncludePath)</IncludePath>
+    <SourcePath>$(ProjectDir)source;$(SourcePath)</SourcePath>
+    <LibraryPath>$(SolutionDir)external\libntfslinks\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Platform)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

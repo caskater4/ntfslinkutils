@@ -118,8 +118,7 @@ DWORD rmlink(LPCTSTR Path, int CurDepth = 0)
 			StringCchCopy(szDir, sizeof(szDir), Path);
 			StringCchCat(szDir, sizeof(szDir), TEXT("\\*"));
 
-			// Iterate through the list of files in the directory and rmlink each one. This will be done in two passes,
-			// the first pass will move all regular files and directories. The second pass will move all reparse points.
+			// Iterate through the list of files in the directory and rmlink each one.
 			hFind = FindFirstFile(szDir, &ffd);
 			if (hFind != INVALID_HANDLE_VALUE)
 			{
@@ -270,12 +269,9 @@ int _tmain(int argc, TCHAR* argv[])
 	}
 
 	// Print the execution statistics
-	if (Options.bVerbose)
-	{
-		printf("Deleted: %d\n", Stats.NumDeleted);
-		printf("Skipped: %d\n", Stats.NumSkipped);
-		printf("Failed: %d\n", Stats.NumFailed);
-	}
+	printf("Deleted: %d\n", Stats.NumDeleted);
+	printf("Skipped: %d\n", Stats.NumSkipped);
+	printf("Failed: %d\n", Stats.NumFailed);
 
 	return Stats.NumFailed > 0 ? (int)result : 0;
 }
