@@ -49,13 +49,13 @@ mvlinkStats Stats;
 /**
  * Prints a friendly message based on the given error code.
  */
-void PrintErrorMessage(DWORD ErrorCode)
+void PrintErrorMessage(DWORD ErrorCode, LPCTSTR Path)
 {
 	switch (ErrorCode)
 	{
-	case ERROR_FILE_NOT_FOUND: printf("Error: File not found.\n"); break;
-	case ERROR_PATH_NOT_FOUND: printf("Error: Path not found.\n"); break;
-	case ERROR_ACCESS_DENIED: printf("Error: Access denied.\n"); break;
+	case ERROR_FILE_NOT_FOUND: printf("Error: File not found: %s.\n", Path); break;
+	case ERROR_PATH_NOT_FOUND: printf("Error: Path not found: %s.\n", Path); break;
+	case ERROR_ACCESS_DENIED: printf("Error: Access denied: %s.\n", Path); break;
 	}
 }
 
@@ -145,7 +145,7 @@ DWORD mvlink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 							result = CreateJunction(DestPath, NewTarget);
 							if (result == 0 && Options.bVerbose)
 							{
-								printf("junction created for %s <<===>> %s", DestPath, NewTarget);
+								printf("junction created for %s <<===>> %s\n", DestPath, NewTarget);
 							}
 						}
 						// Otherwise create a junction to the existing target at the destination
@@ -154,7 +154,7 @@ DWORD mvlink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 							result = CreateJunction(DestPath, Target);
 							if (result == 0 && Options.bVerbose)
 							{
-								printf("junction created for %s <<===>> %s", DestPath, Target);
+								printf("junction created for %s <<===>> %s\n", DestPath, Target);
 							}
 						}
 
@@ -185,7 +185,7 @@ DWORD mvlink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 							result = CreateSymlink(DestPath, NewTarget);
 							if (result == 0 && Options.bVerbose)
 							{
-								printf("symbolic link created for %s <<===>> %s", DestPath, NewTarget);
+								printf("symbolic link created for %s <<===>> %s\n", DestPath, NewTarget);
 							}
 						}
 						// Otherwise create a symlink to the existing target at the destination
@@ -194,7 +194,7 @@ DWORD mvlink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 							result = CreateSymlink(DestPath, Target);
 							if (result == 0 && Options.bVerbose)
 							{
-								printf("symbolic link created for %s <<===>> %s", DestPath, Target);
+								printf("symbolic link created for %s <<===>> %s\n", DestPath, Target);
 							}
 						}
 
@@ -210,8 +210,16 @@ DWORD mvlink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 				}
 				else
 				{
-					printf("Unrecognized reparse point: %s", SrcPath);
-					Stats.NumSkipped++;
+					result = GetLastError();
+					if (result != 0)
+					{
+						PrintErrorMessage(result, SrcPath);
+					}
+					else
+					{
+						printf("Unrecognized reparse point: %s\n", SrcPath);
+						Stats.NumSkipped++;
+					}
 				}
 			}
 		}
@@ -293,7 +301,7 @@ DWORD mvlink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 	if (result != 0)
 	{
 		Stats.NumFailed++;
-		PrintErrorMessage(result);
+		PrintErrorMessage(result, SrcPath);
 	}
 
 	return result;

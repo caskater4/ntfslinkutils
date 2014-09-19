@@ -49,13 +49,13 @@ rmlinkStats Stats;
 /**
  * Prints a friendly message based on the given error code.
  */
-void PrintErrorMessage(DWORD ErrorCode)
+void PrintErrorMessage(DWORD ErrorCode, LPCTSTR Path)
 {
 	switch (ErrorCode)
 	{
-	case ERROR_FILE_NOT_FOUND: printf("Error: File not found.\n"); break;
-	case ERROR_PATH_NOT_FOUND: printf("Error: Path not found.\n"); break;
-	case ERROR_ACCESS_DENIED: printf("Error: Access denied.\n"); break;
+	case ERROR_FILE_NOT_FOUND: printf("Error: File not found: %s.\n", Path); break;
+	case ERROR_PATH_NOT_FOUND: printf("Error: Path not found: %s.\n", Path); break;
+	case ERROR_ACCESS_DENIED: printf("Error: Access denied: %s.\n", Path); break;
 	}
 }
 
@@ -104,8 +104,16 @@ DWORD rmlink(LPCTSTR Path, int CurDepth = 0)
 			}
 			else
 			{
-				printf("Unrecognized reparse point: %s", Path);
-				Stats.NumSkipped++;
+				result = GetLastError();
+				if (result != 0)
+				{
+					PrintErrorMessage(result, Path);
+				}
+				else
+				{
+					printf("Unrecognized reparse point: %s\n", Path);
+					Stats.NumSkipped++;
+				}
 			}
 		}
 		else if ((pathAttributeData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
@@ -165,7 +173,7 @@ DWORD rmlink(LPCTSTR Path, int CurDepth = 0)
 	if (result != 0)
 	{
 		Stats.NumFailed++;
-		PrintErrorMessage(result);
+		PrintErrorMessage(result, Path);
 	}
 
 	return result;

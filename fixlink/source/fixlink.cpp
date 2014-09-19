@@ -49,13 +49,13 @@ fixlinkStats Stats;
 /**
  * Prints a friendly message based on the given error code.
  */
-void PrintErrorMessage(DWORD ErrorCode)
+void PrintErrorMessage(DWORD ErrorCode, LPCTSTR Path)
 {
 	switch (ErrorCode)
 	{
-	case ERROR_FILE_NOT_FOUND: printf("Error: File not found.\n"); break;
-	case ERROR_PATH_NOT_FOUND: printf("Error: Path not found.\n"); break;
-	case ERROR_ACCESS_DENIED: printf("Error: Access denied.\n"); break;
+	case ERROR_FILE_NOT_FOUND: printf("Error: File not found: %s.\n", Path); break;
+	case ERROR_PATH_NOT_FOUND: printf("Error: Path not found: %s.\n", Path); break;
+	case ERROR_ACCESS_DENIED: printf("Error: Access denied: %s.\n", Path); break;
 	}
 }
 
@@ -103,7 +103,7 @@ DWORD fixlink(LPCTSTR Path, int CurDepth = 0)
 						result = CreateJunction(Path, NewTarget);
 						if (result == 0 && Options.bVerbose)
 						{
-							printf("junction %s target modified. old=%s, new=%s", Path, Target, NewTarget);
+							printf("junction %s target modified. old=%s, new=%s\n", Path, Target, NewTarget);
 						}
 					}
 				}
@@ -127,15 +127,23 @@ DWORD fixlink(LPCTSTR Path, int CurDepth = 0)
 						result = CreateSymlink(Path, NewTarget);
 						if (result == 0 && Options.bVerbose)
 						{
-							printf("symlink %s target modified. old=%s, new=%s", Path, Target, NewTarget);
+							printf("symlink %s target modified. old=%s, new=%s\n", Path, Target, NewTarget);
 						}
 					}
 				}
 			}
 			else
 			{
-				printf("Unrecognized reparse point: %s", Path);
-				Stats.NumSkipped++;
+				result = GetLastError();
+				if (result != 0)
+				{
+					PrintErrorMessage(result, Path);
+				}
+				else
+				{
+					printf("Unrecognized reparse point: %s\n", Path);
+					Stats.NumSkipped++;
+				}
 			}
 		}
 		else if ((srcAttributeData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
@@ -195,7 +203,7 @@ DWORD fixlink(LPCTSTR Path, int CurDepth = 0)
 	if (result != 0)
 	{
 		Stats.NumFailed++;
-		PrintErrorMessage(result);
+		PrintErrorMessage(result, Path);
 	}
 
 	return result;
