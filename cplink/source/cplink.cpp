@@ -53,9 +53,9 @@ void PrintErrorMessage(DWORD ErrorCode, LPCTSTR Path)
 {
 	switch (ErrorCode)
 	{
-	case ERROR_FILE_NOT_FOUND: printf("Error: File not found: %s.\n", Path); break;
-	case ERROR_PATH_NOT_FOUND: printf("Error: Path not found: %s.\n", Path); break;
-	case ERROR_ACCESS_DENIED: printf("Error: Access denied: %s.\n", Path); break;
+	case ERROR_FILE_NOT_FOUND: _tprintf(TEXT("File not found: %s.\n"), Path); break;
+	case ERROR_PATH_NOT_FOUND: _tprintf(TEXT("Path not found: %s.\n"), Path); break;
+	case ERROR_ACCESS_DENIED: _tprintf(TEXT("Access denied: %s.\n"), Path); break;
 	}
 }
 
@@ -83,7 +83,7 @@ DWORD cplink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 	if (GetFullPathName(Src, MAX_PATH, SrcPath, NULL) == 0)
 	{
 		Stats.NumFailed++;
-		printf("Invalid source path specified.\n");
+		_tprintf(TEXT("Invalid source path specified.\n"));
 		return 1;
 	}
 	
@@ -92,7 +92,7 @@ DWORD cplink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 	if (GetFullPathName(Dest, MAX_PATH, DestPath, NULL) == 0)
 	{
 		Stats.NumFailed++;
-		printf("Invalid destination path specified.\n");
+		_tprintf(TEXT("Invalid destination path specified.\n"));
 		return 1;
 	}
 
@@ -145,7 +145,7 @@ DWORD cplink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 							result = CreateJunction(DestPath, NewTarget);
 							if (result == 0 && Options.bVerbose)
 							{
-								printf("junction created for %s <<===>> %s\n", DestPath, NewTarget);
+								_tprintf(TEXT("junction created for %s <<===>> %s\n"), DestPath, NewTarget);
 							}
 						}
 						// Otherwise create a junction to the existing target at the destination
@@ -154,7 +154,7 @@ DWORD cplink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 							result = CreateJunction(DestPath, Target);
 							if (result == 0 && Options.bVerbose)
 							{
-								printf("junction created for %s <<===>> %s\n", DestPath, Target);
+								_tprintf(TEXT("junction created for %s <<===>> %s\n"), DestPath, Target);
 							}
 						}
 
@@ -182,7 +182,7 @@ DWORD cplink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 							result = CreateSymlink(DestPath, NewTarget);
 							if (result == 0 && Options.bVerbose)
 							{
-								printf("symbolic link created for %s <<===>> %s\n", DestPath, NewTarget);
+								_tprintf(TEXT("symbolic link created for %s <<===>> %s\n"), DestPath, NewTarget);
 							}
 						}
 						// Otherwise create a symlink to the existing target at the destination
@@ -191,7 +191,7 @@ DWORD cplink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 							result = CreateSymlink(DestPath, Target);
 							if (result == 0 && Options.bVerbose)
 							{
-								printf("symbolic link created for %s <<===>> %s\n", DestPath, Target);
+								_tprintf(TEXT("symbolic link created for %s <<===>> %s\n"), DestPath, Target);
 							}
 						}
 
@@ -211,7 +211,7 @@ DWORD cplink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 					}
 					else
 					{
-						printf("Unrecognized reparse point: %s\n", SrcPath);
+						_tprintf(TEXT("Unrecognized reparse point: %s\n"), SrcPath);
 						Stats.NumSkipped++;
 					}
 				}
@@ -303,44 +303,44 @@ DWORD cplink(LPCTSTR Src, LPCTSTR Dest, int CurDepth = 0)
 
 void PrintUsage()
 {
-	printf("Copies all symbolic links and junctions from one path to another.\n\n");
-	printf("Usage: cplink [/V] [/LEV:n] [/R <find> <replace>] <source> <destination>\n\n");
-	printf("Options:\n");
-	printf("\t\t/LEV:n\t\tOnly copy the top n levels of the source directory tree.\n");
-	printf("\t\t/R <old> <new>\tModifies the target path of all links, replacing the last occurrence of <old> with <new>.\n");
-	printf("\t\t/V\t\tEnable verbose output and display more information.\n");
-	printf("\t\t/VER\t\tDisplay the version and copyright information.\n");
-	printf("\t\t/?\t\tView this list of options.\n");
+	_tprintf(TEXT("Copies all symbolic links and junctions from one path to another.\n\n"));
+	_tprintf(TEXT("Usage: cplink [/V] [/LEV:n] [/R <find> <replace>] <source> <destination>\n\n"));
+	_tprintf(TEXT("Options:\n"));
+	_tprintf(TEXT("\t\t/LEV:n\t\tOnly copy the top n levels of the source directory tree.\n"));
+	_tprintf(TEXT("\t\t/R <old> <new>\tModifies the target path of all links, replacing the last occurrence of <old> with <new>.\n"));
+	_tprintf(TEXT("\t\t/V\t\tEnable verbose output and display more information.\n"));
+	_tprintf(TEXT("\t\t/VER\t\tDisplay the version and copyright information.\n"));
+	_tprintf(TEXT("\t\t/?\t\tView this list of options.\n"));
 }
 
 void PrintVersion()
 {
-	printf("Copyright (C) 2014, Jean-Philippe Steinmetz. All rights reserved.\n");
-	printf("\n");
-	printf("Redistribution and use in source and binary forms, with or without\n");
-	printf("modification, are permitted provided that the following conditions are met:\n");
-	printf("\n");
-	printf("* Redistributions of source code must retain the above copyright notice, this\n");
-	printf("  list of conditions and the following disclaimer.\n");
-	printf("\n");
-	printf("* Redistributions in binary form must reproduce the above copyright notice,\n");
-	printf("  this list of conditions and the following disclaimer in the documentation\n");
-	printf("  and/or other materials provided with the distribution.\n");
-	printf("\n");
-	printf("* Neither the name of the {organization} nor the names of its\n");
-	printf("  contributors may be used to endorse or promote products derived from\n");
-	printf("  this software without specific prior written permission.\n");
-	printf("\n");
-	printf("THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n");
-	printf("AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n");
-	printf("IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n");
-	printf("DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n");
-	printf("FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n");
-	printf("DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n");
-	printf("SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n");
-	printf("CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n");
-	printf("OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n");
-	printf("OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.");
+	_tprintf(TEXT("Copyright (C) 2014, Jean-Philippe Steinmetz. All rights reserved.\n"));
+	_tprintf(TEXT("\n"));
+	_tprintf(TEXT("Redistribution and use in source and binary forms, with or without\n"));
+	_tprintf(TEXT("modification, are permitted provided that the following conditions are met:\n"));
+	_tprintf(TEXT("\n"));
+	_tprintf(TEXT("* Redistributions of source code must retain the above copyright notice, this\n"));
+	_tprintf(TEXT("  list of conditions and the following disclaimer.\n"));
+	_tprintf(TEXT("\n"));
+	_tprintf(TEXT("* Redistributions in binary form must reproduce the above copyright notice,\n"));
+	_tprintf(TEXT("  this list of conditions and the following disclaimer in the documentation\n"));
+	_tprintf(TEXT("  and/or other materials provided with the distribution.\n"));
+	_tprintf(TEXT("\n"));
+	_tprintf(TEXT("* Neither the name of the {organization} nor the names of its\n"));
+	_tprintf(TEXT("  contributors may be used to endorse or promote products derived from\n"));
+	_tprintf(TEXT("  this software without specific prior written permission.\n"));
+	_tprintf(TEXT("\n"));
+	_tprintf(TEXT("THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n"));
+	_tprintf(TEXT("AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n"));
+	_tprintf(TEXT("IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n"));
+	_tprintf(TEXT("DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\n"));
+	_tprintf(TEXT("FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n"));
+	_tprintf(TEXT("DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\n"));
+	_tprintf(TEXT("SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n"));
+	_tprintf(TEXT("CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\n"));
+	_tprintf(TEXT("OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n"));
+	_tprintf(TEXT("OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n"));
 }
 
 int _tmain(int argc, TCHAR* argv[])
@@ -373,7 +373,7 @@ int _tmain(int argc, TCHAR* argv[])
 			requiredArgs += 3;
 			if (argc < requiredArgs || argv[i+1][0] == '/' || argv[i+2][0] == '/')
 			{
-				printf("Error: Invalid argument(s).\n");
+				_tprintf(TEXT("Error: Invalid argument(s).\n"));
 				PrintUsage();
 				return 1;
 			}
@@ -390,7 +390,7 @@ int _tmain(int argc, TCHAR* argv[])
 	// Check the minimum required arguments
 	if (argc < requiredArgs)
 	{
-		printf("Error: Missing argument(s).\n");
+		_tprintf(TEXT("Error: Missing argument(s).\n"));
 		PrintUsage();
 		return 1;
 	}
@@ -399,9 +399,9 @@ int _tmain(int argc, TCHAR* argv[])
 	result = cplink(argv[argc-2], argv[argc-1]);
 
 	// Print the execution statistics
-	printf("Copied: %d\n", Stats.NumCopied);
-	printf("Skipped: %d\n", Stats.NumSkipped);
-	printf("Failed: %d\n", Stats.NumFailed);
+	_tprintf(TEXT("Copied: %d\n"), Stats.NumCopied);
+	_tprintf(TEXT("Skipped: %d\n"), Stats.NumSkipped);
+	_tprintf(TEXT("Failed: %d\n"), Stats.NumFailed);
 
 	return Stats.NumFailed > 0 ? (int)result : 0;
 }
