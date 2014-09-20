@@ -273,5 +273,11 @@ int _tmain(int argc, TCHAR* argv[])
 	_tprintf(TEXT("Skipped: %d\n"), Stats.NumSkipped);
 	_tprintf(TEXT("Failed: %d\n"), Stats.NumFailed);
 
-	return Stats.NumFailed > 0 ? (int)result : 0;
+	// Make sure that if there were errors it is reflected in the result
+	if (result == 0 && Stats.NumFailed > 0)
+	{
+		result = 1;
+	}
+
+	return result;
 }
