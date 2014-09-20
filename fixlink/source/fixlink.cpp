@@ -131,11 +131,7 @@ DWORD fixlink(LPCTSTR Path, int CurDepth = 0)
 			else
 			{
 				result = GetLastError();
-				if (result != 0)
-				{
-					PrintErrorMessage(result, Path);
-				}
-				else
+				if (result == 0)
 				{
 					_tprintf(TEXT("Unrecognized reparse point: %s\n"), Path);
 					Stats.NumSkipped++;
@@ -185,8 +181,17 @@ DWORD fixlink(LPCTSTR Path, int CurDepth = 0)
 			}
 			else
 			{
-				// Failed to find the first file
-				result = GetLastError();
+				// If we failed to be able to read the directory listing due to a access violation count it as a skip
+				// instead of a complete failure.
+				if (GetLastError() == ERROR_ACCESS_DENIED)
+				{
+					PrintErrorMessage(GetLastError(), Path);
+					Stats.NumSkipped++;
+				}
+				else
+				{
+					result = GetLastError();
+				}
 			}
 		}
 	}
